@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<!-- ===============================================
+     PORTFOLIO - HEADER & META SECTION
+     Konfigurasi dokumen HTML dan pengaturan dasar
+     =============================================== -->
+<head>
+  <!-- Meta Tags: UTF-8 encoding dan responsive settings -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio — Muhammad Alfin Azizi</title>
+  
+  <!-- Google Fonts: Rajdhani, Space Mono, Outfit untuk typography custom -->
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet CSS: Styling utama portfolio -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- JavaScript: Script interaktif (defer agar load setelah HTML siap) -->
+  <script defer src="js/script.js"></script>
+</head>
+<body>
+
+<!-- ===============================================
+     CUSTOM CURSOR - Efek mouse custom
+     =============================================== -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ===============================================
+     ANIMATED SIGNAL BACKGROUND - Background animasi
+     Canvas untuk menampilkan efek jaringan/signal yang bergerak
+     =============================================== -->
+<canvas class="signal-canvas" id="signalCanvas"></canvas>
+
+<div class="page-wrapper">
+
+<!-- ===============================================
+     NAVIGATION BAR - Menu utama portfolio
+     Navigasi fixed di atas yang menampilkan logo dan link halaman
+     =============================================== -->
+<nav>
+  <div class="nav-logo">Alfin<span>.portfolio</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="keahlian.html">Keahlian</a></li>
+    <li><a href="pendidikan.html">Pendidikan</a></li>
+    <li><a href="tentang.html">Tentang</a></li>
+    <li><a href="kontak.html">Kontak</a></li>
+  </ul>
+</nav>
+
+<!-- ===============================================
+     HERO SECTION - Selamat datang/pengenalan
+     Bagian pertama dengan nama, profil singkat, dan CTA buttons
+     =============================================== -->
+<section id="hero">
+  <!-- Signal line: Decorative line animation di sebelah kiri -->
+  <div class="hero-signal-line"></div>
+  
+  <!-- Hero Left: Konten teks (nama, profil, buttons) -->
+  <div class="hero-left">
+    <!-- Badge: Label sekolah dan jurusan -->
+    <div class="hero-badge">SMKN 1 NGLEGOK — Jurusan TKJ</div>
+    
+    <!-- Main Heading: Nama pemilik portfolio -->
+    <h1 class="hero-name">Halo, Saya<br><span class="highlight">Muhammad Alfin Azizi</span></h1>
+    
+    <!-- Subtitle: Daftar keahlian/spesialisasi -->
+    <p class="hero-title">Teknik Komputer dan Jaringan · Networking · System Support</p>
+    
+    <!-- Description: Penjelasan singkat tentang pemilik portfolio -->
+    <p class="hero-desc">Pelajar TKJ yang fokus pada jaringan, sistem operasi, dan layanan IT. Saya menggabungkan pengalaman praktis di Mikrotik, Linux/Debian, dan pengembangan web untuk mendukung proyek digital sekolah dan komunitas.</p>
+    
+    <!-- CTA Buttons: Tombol untuk navigasi ke halaman lain -->
+    <div class="hero-btns">
+      <a href="pendidikan.html" class="btn-primary">Lihat Pendidikan</a>
+      <a href="keahlian.html" class="btn-outline">Keahlian</a>
+      <a href="kontak.html" class="btn-outline">Hubungi Saya</a>
+    </div>
+  </div>
+
+  <!-- Hero Right: Visual element dengan signal orb animasi -->
+  <div class="hero-right">
+    <!-- Signal Orb: Elemen visual utama (lingkaran animasi + icon) -->
+    <div class="signal-orb-wrapper">
+      <div class="signal-orb">
+        <!-- Ring Animation: 5 lingkaran yang melebar -->
+        <div class="signal-ring"></div>
+        <div class="signal-ring"></div>
+        <div class="signal-ring"></div>
+        <div class="signal-ring"></div>
+        <div class="signal-ring"></div>
+        <!-- Center Icon: Satellite emoji untuk tema networking -->
+        <div class="signal-center">
+          <img src="image/30b349a8-e9bc-4fe4-b266-bca8cdc769fb.jpg" alt="Host">
+        </div>
+      </div>
+      <!-- Floating Chips: Tag floating dengan skill utama -->
+      <div class="floating-chip chip-1">🌐 Networking</div>
+      <div class="floating-chip chip-2">🖥️ SysAdmin</div>
+      <div class="floating-chip chip-3">💻 Web Dev</div>
+    </div>
+  </div>
+</section>
+<!-- ===============================================
+     END HERO SECTION
+     =============================================== -->
+
+</div><!-- end page-wrapper -->
+</body>
+</html>

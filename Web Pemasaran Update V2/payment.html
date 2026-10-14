@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pembelian - MUSICA JAYA ELEKTRONIK</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/payment.css">
+</head>
+<body class="payment-page-body">
+    <a href="#payment-main" class="skip-link">Lewati ke konten utama</a>
+
+    <header class="header" role="banner">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <div class="logo-icon" aria-hidden="true">MJ</div>
+                    <div class="logo-text">
+                        <h1>MUSICA JAYA <span>ELEKTRONIK</span></h1>
+                        <p>Your Music &amp; Electronics Partner</p>
+                    </div>
+                </div>
+                <a href="cart.html" class="cart-btn" aria-label="Keranjang belanja"><span aria-hidden="true">🛒</span></a>
+                <span id="headerAuthArea"></span>
+            </div>
+            <nav class="nav" role="navigation" aria-label="Menu utama">
+                <a href="index.html">Beranda</a>
+                <a href="products.html">Produk</a>
+                <a href="kontak.html">Kontak</a>
+                <a href="pengembang.html">Pengembang</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="payment-main" class="payment-main">
+        <div class="container">
+            <div class="payment-wrapper">
+
+                <!-- Kiri: Ringkasan Pesanan -->
+                <aside class="order-summary" aria-labelledby="summary-title">
+                    <div class="summary-box">
+                        <span class="corner-tl" aria-hidden="true"></span>
+                        <span class="corner-tr" aria-hidden="true"></span>
+                        <span class="corner-bl" aria-hidden="true"></span>
+                        <span class="corner-br" aria-hidden="true"></span>
+                        <div class="summary-header">
+                            <div class="summary-icon" aria-hidden="true">🛒</div>
+                            <h2 id="summary-title">Ringkasan Pesanan</h2>
+                        </div>
+                        <div id="productSummary" class="product-summary-list"></div>
+                        <div class="summary-divider"></div>
+                        <div class="summary-total-row">
+                            <span>Total Pembayaran</span>
+                            <span id="summaryTotal" class="summary-total-amount">Rp 0</span>
+                        </div>
+                        <div class="summary-badge">
+                            <span aria-hidden="true">🔒</span> Transaksi Aman &amp; Terpercaya
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Kanan: Form Pembayaran -->
+                <section class="payment-form-section" aria-labelledby="form-title">
+                    <div class="payment-form-box">
+                        <div class="form-header">
+                            <h2 id="form-title">Detail Pembeli</h2>
+                            <p>Isi data dengan benar agar pesanan bisa diproses</p>
+                        </div>
+
+                        <form class="payment-form" id="paymentForm" novalidate>
+
+                            <div class="form-group">
+                                <label for="namaPembeli">Nama Lengkap <span class="required" aria-hidden="true">*</span></label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon" aria-hidden="true">👤</span>
+                                    <input type="text" id="namaPembeli" placeholder="Nama lengkap Anda" required autocomplete="name" aria-required="true">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nomorTelepon">Nomor Telepon / WhatsApp <span class="required" aria-hidden="true">*</span></label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon" aria-hidden="true">📱</span>
+                                    <input type="tel" id="nomorTelepon" placeholder="08xx-xxxx-xxxx" required autocomplete="tel" aria-required="true">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="emailPembeli">Alamat Email <span class="required" aria-hidden="true">*</span></label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon" aria-hidden="true">✉️</span>
+                                    <input type="email" id="emailPembeli" placeholder="email@contoh.com" required autocomplete="email" aria-required="true">
+                                </div>
+                            </div>
+
+                            <!-- Metode Pembayaran -->
+                            <div class="form-group">
+                                <label id="label-metode">Metode Pembayaran <span class="required" aria-hidden="true">*</span></label>
+                                <div class="payment-methods-grid" role="radiogroup" aria-labelledby="label-metode">
+
+                                    <button type="button" class="payment-method-card active" data-method="OVO" aria-pressed="true">
+                                        <span class="method-logo ovo" aria-hidden="true">OVO</span>
+                                        <span class="method-name">OVO</span>
+                                        <span class="method-check" aria-hidden="true">✓</span>
+                                    </button>
+
+                                    <button type="button" class="payment-method-card" data-method="GoPay" aria-pressed="false">
+                                        <span class="method-logo gopay" aria-hidden="true">G</span>
+                                        <span class="method-name">GoPay</span>
+                                        <span class="method-check" aria-hidden="true">✓</span>
+                                    </button>
+
+                                    <button type="button" class="payment-method-card" data-method="Dana" aria-pressed="false">
+                                        <span class="method-logo dana" aria-hidden="true">D</span>
+                                        <span class="method-name">DANA</span>
+                                        <span class="method-check" aria-hidden="true">✓</span>
+                                    </button>
+
+                                    <button type="button" class="payment-method-card" data-method="Transfer Bank" aria-pressed="false">
+                                        <span class="method-logo bank" aria-hidden="true">🏦</span>
+                                        <span class="method-name">Transfer Bank</span>
+                                        <span class="method-check" aria-hidden="true">✓</span>
+                                    </button>
+
+                                </div>
+                                <p class="payment-note"><span aria-hidden="true">ℹ️</span> Total bayar akan dikonfirmasi via WhatsApp &amp; Email.</p>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" onclick="window.history.back()">← Batal</button>
+                                <button type="submit" class="btn btn-primary btn-submit">
+                                    <span class="btn-text">Konfirmasi Pesanan</span>
+                                    <span class="btn-icon" aria-hidden="true">→</span>
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        <p>&copy; 2025 MUSICA JAYA ELEKTRONIK. All rights reserved.</p>
+    </footer>
+
+    <!-- ══ POPUP SUKSES ══ -->
+    <div class="success-overlay" id="successOverlay" role="dialog" aria-modal="true" aria-labelledby="popup-title" aria-describedby="popup-desc" hidden>
+        <div class="success-popup">
+            <div class="popup-glow" aria-hidden="true"></div>
+
+            <div class="popup-icon-wrap" aria-hidden="true">
+                <div class="popup-ring ring-1"></div>
+                <div class="popup-ring ring-2"></div>
+                <div class="popup-icon">✓</div>
+            </div>
+
+            <h2 id="popup-title">Pesanan Berhasil!</h2>
+            <p id="popup-desc">Terima kasih! Pesanan Anda telah kami terima dan sedang diproses.</p>
+
+            <div class="popup-detail" id="popupDetail"></div>
+
+            <div class="popup-info-row">
+                <div class="popup-info-item">
+                    <span class="popup-info-icon" aria-hidden="true">📱</span>
+                    <span>Konfirmasi via WhatsApp</span>
+                </div>
+                <div class="popup-info-item">
+                    <span class="popup-info-icon" aria-hidden="true">✉️</span>
+                    <span>Konfirmasi via Email</span>
+                </div>
+            </div>
+
+            <div class="popup-divider" aria-hidden="true">
+                <span></span><span>tim kami akan menghubungi Anda segera</span><span></span>
+            </div>
+
+            <a href="index.html" class="btn btn-primary popup-btn">Kembali ke Beranda</a>
+
+            <div class="popup-corners" aria-hidden="true">
+                <span class="pc tl"></span>
+                <span class="pc tr"></span>
+                <span class="pc bl"></span>
+                <span class="pc br"></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/database.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/payment.js"></script>
+</body>
+</html>

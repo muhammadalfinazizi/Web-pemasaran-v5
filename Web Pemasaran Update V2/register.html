@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrasi — MUSICA JAYA ELEKTRONIK</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <header class="header" role="banner">
+        <div class="container">
+            <div class="header-top">
+                <a href="index.html" class="logo" style="text-decoration:none">
+                    <div class="logo-icon" aria-hidden="true">MJ</div>
+                    <div class="logo-text">
+                        <h1>MUSICA JAYA <span>ELEKTRONIK</span></h1>
+                        <p>Your Music &amp; Electronics Partner</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="auth-main">
+        <div class="auth-card">
+            <div class="auth-card-header">
+                <div class="auth-icon">📝</div>
+                <h2>Buat Akun Baru</h2>
+                <p>Isi data di bawah untuk mendaftar</p>
+            </div>
+
+            <div id="regError" class="auth-alert error" hidden></div>
+            <div id="regSuccess" class="auth-alert success" hidden></div>
+
+            <form id="registerForm" class="auth-form" novalidate>
+                <div class="form-group">
+                    <label for="regNama">Nama Pengguna <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">👤</span>
+                        <input type="text" id="regNama" placeholder="Nama lengkap Anda" required autocomplete="name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="regTelepon">Nomor Telepon <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">📱</span>
+                        <input type="tel" id="regTelepon" placeholder="08xx-xxxx-xxxx" required autocomplete="tel">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="regEmail">Alamat Email <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">✉️</span>
+                        <input type="email" id="regEmail" placeholder="email@contoh.com" required autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="regPassword">Password <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" id="regPassword" placeholder="Minimal 6 karakter" required autocomplete="new-password">
+                        <button type="button" class="toggle-pw" id="togglePw" aria-label="Tampilkan password">👁</button>
+                    </div>
+                </div>
+
+                <div class="auth-form-actions">
+                    <a href="login.html" class="btn btn-secondary">Batal</a>
+                    <button type="submit" class="btn btn-primary" id="regBtn">
+                        <span id="regBtnText">Registrasi</span>
+                    </button>
+                </div>
+            </form>
+
+            <p class="auth-switch">
+                Sudah punya akun? <a href="login.html" class="auth-link">Masuk di sini</a>
+            </p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 MUSICA JAYA ELEKTRONIK. All rights reserved.</p>
+    </footer>
+
+    <script src="js/database.js"></script>
+    <script>
+        document.getElementById('togglePw').addEventListener('click', function () {
+            const pw = document.getElementById('regPassword');
+            pw.type = pw.type === 'password' ? 'text' : 'password';
+            this.textContent = pw.type === 'password' ? '👁' : '🙈';
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const nama = document.getElementById('regNama').value.trim();
+            const telepon = document.getElementById('regTelepon').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+
+            const errorEl = document.getElementById('regError');
+            const successEl = document.getElementById('regSuccess');
+            const btn = document.getElementById('regBtn');
+            const btnText = document.getElementById('regBtnText');
+
+            errorEl.hidden = true;
+            successEl.hidden = true;
+
+            // Validasi
+            if (!nama || !telepon || !email || !password) {
+                errorEl.textContent = 'Semua kolom wajib diisi.';
+                errorEl.hidden = false;
+                return;
+            }
+            if (password.length < 6) {
+                errorEl.textContent = 'Password minimal 6 karakter.';
+                errorEl.hidden = false;
+                return;
+            }
+
+            btn.disabled = true;
+            btnText.textContent = 'Mendaftar...';
+
+            try {
+                const result = await registerUser({ nama, telepon, email, password });
+                await saveSession(result.user);
+                successEl.textContent = 'Registrasi berhasil! Mengalihkan ke beranda...';
+                successEl.hidden = false;
+                setTimeout(() => { window.location.href = 'index.html'; }, 1500);
+            } catch (err) {
+                errorEl.textContent = err.message || 'Registrasi gagal. Coba lagi.';
+                errorEl.hidden = false;
+                btn.disabled = false;
+                btnText.textContent = 'Registrasi';
+            }
+        });
+    </script>
+</body>
+</html>

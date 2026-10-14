@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masuk — MUSICA JAYA ELEKTRONIK</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <header class="header" role="banner">
+        <div class="container">
+            <div class="header-top">
+                <a href="index.html" class="logo" style="text-decoration:none">
+                    <div class="logo-icon" aria-hidden="true">MJ</div>
+                    <div class="logo-text">
+                        <h1>MUSICA JAYA <span>ELEKTRONIK</span></h1>
+                        <p>Your Music &amp; Electronics Partner</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="auth-main">
+        <div class="auth-card">
+            <div class="auth-card-header">
+                <div class="auth-icon">🔐</div>
+                <h2>Masuk ke Akun</h2>
+                <p>Masukkan email dan password Anda</p>
+            </div>
+
+            <div id="loginError" class="auth-alert error" hidden></div>
+
+            <form id="loginForm" class="auth-form" novalidate>
+                <div class="form-group">
+                    <label for="loginEmail">Alamat Email</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">✉️</span>
+                        <input type="email" id="loginEmail" placeholder="email@contoh.com" required autocomplete="email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" id="loginPassword" placeholder="Masukkan password" required autocomplete="current-password">
+                        <button type="button" class="toggle-pw" id="togglePw" aria-label="Tampilkan password">👁</button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block" id="loginBtn">
+                    <span id="loginBtnText">Masuk</span>
+                </button>
+            </form>
+
+            <div class="auth-divider"><span>atau</span></div>
+
+            <p class="auth-switch">
+                Belum punya akun?
+                <a href="register.html" class="auth-link">lakukan registrasi akun</a>
+            </p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 MUSICA JAYA ELEKTRONIK. All rights reserved.</p>
+    </footer>
+
+    <script src="js/database.js"></script>
+    <script>
+        // Cek jika sudah login
+        (async () => {
+            const session = await getSession();
+            if (session) {
+                const params = new URLSearchParams(window.location.search);
+                window.location.href = params.get('redirect') || 'index.html';
+            }
+        })();
+
+        // Toggle password visibility
+        document.getElementById('togglePw').addEventListener('click', function () {
+            const pw = document.getElementById('loginPassword');
+            pw.type = pw.type === 'password' ? 'text' : 'password';
+            this.textContent = pw.type === 'password' ? '👁' : '🙈';
+        });
+
+        // Handle login
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const errorEl = document.getElementById('loginError');
+            const btn = document.getElementById('loginBtn');
+            const btnText = document.getElementById('loginBtnText');
+
+            errorEl.hidden = true;
+            btn.disabled = true;
+            btnText.textContent = 'Memproses...';
+
+            try {
+                const result = await loginUser(email, password);
+                await recordUserLogin(result.user.email, result.user.nama);
+                await saveSession(result.user);
+                const params = new URLSearchParams(window.location.search);
+                window.location.href = params.get('redirect') || 'index.html';
+            } catch (err) {
+                errorEl.textContent = err.message || 'Login gagal. Periksa email dan password.';
+                errorEl.hidden = false;
+                btn.disabled = false;
+                btnText.textContent = 'Masuk';
+            }
+        });
+    </script>
+</body>
+</html>

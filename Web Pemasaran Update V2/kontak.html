@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontak - MUSICA JAYA ELEKTRONIK</title>
+    <meta name="description" content="Hubungi Musica Jaya Elektronik – telepon, alamat, dan jam buka toko.">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <a href="#konten-utama" class="skip-link">Lewati ke konten utama</a>
+
+    <header class="header" role="banner">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <div class="logo-icon" aria-hidden="true">MJ</div>
+                    <div class="logo-text">
+                        <h1>MUSICA JAYA <span>ELEKTRONIK</span></h1>
+                        <p>Your Music &amp; Electronics Partner</p>
+                    </div>
+                </div>
+                <a href="cart.html" class="cart-btn" aria-label="Keranjang belanja">
+                    <span aria-hidden="true">🛒</span>
+                </a>
+            </div>
+            <nav class="nav" role="navigation" aria-label="Menu utama">
+                <a href="index.html">Beranda</a>
+                <a href="products.html">Produk</a>
+                <a href="kontak.html" aria-current="page">Kontak</a>
+                <a href="pengembang.html">Pengembang</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="konten-utama" class="page-main">
+        <div class="container">
+            <div class="page-hero">
+                <span class="corner-tl" aria-hidden="true"></span>
+                <span class="corner-tr" aria-hidden="true"></span>
+                <span class="corner-bl" aria-hidden="true"></span>
+                <span class="corner-br" aria-hidden="true"></span>
+                <h2>Hubungi Kami</h2>
+                <p>Kami siap membantu Anda — kunjungi toko, telepon, atau kirim pesan kapan saja.</p>
+            </div>
+
+            <section class="contact-section" aria-labelledby="kontak-title">
+                <div class="contact-content">
+                    <h2 id="kontak-title" class="visually-hidden">Informasi Kontak</h2>
+                    <div class="contact-grid">
+                        <div class="contact-info">
+                            <p class="contact-intro">Kunjungi toko kami atau hubungi melalui:</p>
+
+                            <div class="contact-item">
+                                <div class="contact-icon" aria-hidden="true">📞</div>
+                                <div>
+                                    <h3>Telepon / WhatsApp</h3>
+                                    <p><a href="tel:+6289563986225" class="contact-link" data-setting="contact_phone">089-563-986-2251</a></p>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <div class="contact-icon" aria-hidden="true">📍</div>
+                                <div>
+                                    <h3>Alamat Toko</h3>
+                                    <p data-setting="contact_address">Jl. Contoh No.1, Kota</p>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <div class="contact-icon" aria-hidden="true">🕐</div>
+                                <div>
+                                    <h3>Jam Buka</h3>
+                                    <p data-setting="contact_hours">Senin – Sabtu: 09.00 – 21.00 WIB</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contact-image">
+                            <img src="assets/images/kontak.jpg" alt="Tampak depan toko Musica Jaya Elektronik" data-setting="contact_image" onerror="this.onerror=null;this.src='assets/images/placeholder-product.svg'">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        <p>&copy; 2025 MUSICA JAYA ELEKTRONIK. All rights reserved.</p>
+    </footer>
+<script src="js/database.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/site-settings.js"></script>
+    <script>document.addEventListener("DOMContentLoaded",async()=>{await renderAuthHeader({active:"kontak"});});</script>
+</body>
+</html>

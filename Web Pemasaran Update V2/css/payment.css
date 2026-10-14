@@ -1,0 +1,604 @@
+/* ══════════════════════════════════════
+   PAYMENT PAGE - Dedicated Styles
+   MUSICA JAYA ELEKTRONIK
+══════════════════════════════════════ */
+
+.payment-page-body {
+    background: var(--blue-deep);
+}
+
+.payment-main {
+    padding: 130px 0 80px;
+    min-height: 100vh;
+}
+
+/* ── Layout wrapper ── */
+.payment-wrapper {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 32px;
+    align-items: start;
+}
+
+/* ════════════════ ORDER SUMMARY (kiri) ════════════════ */
+.summary-box {
+    background: linear-gradient(160deg, rgba(11,26,51,0.98) 0%, rgba(7,20,40,1) 100%);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 36px 32px;
+    position: sticky;
+    top: 110px;
+    overflow: hidden;
+}
+
+.summary-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+        transparent,
+        var(--silver-dark) 20%,
+        var(--blue-accent) 50%,
+        var(--silver-dark) 80%,
+        transparent);
+}
+
+.summary-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.summary-icon {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, var(--blue-primary), var(--blue-accent));
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    box-shadow: var(--glow-blue);
+    flex-shrink: 0;
+}
+
+.summary-header h2 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 20px; font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--silver-white);
+}
+
+/* product list inside summary */
+.product-summary-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.summary-product-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px;
+    background: rgba(196, 102, 26,0.05);
+    border: 1px solid var(--card-border);
+    border-left: 3px solid var(--blue-primary);
+    border-radius: 6px;
+}
+
+.summary-product-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text);
+}
+
+.summary-product-qty {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.summary-product-price {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--blue-bright);
+    white-space: nowrap;
+}
+
+.summary-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--silver-dark), transparent);
+    margin: 20px 0;
+}
+
+.summary-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 17px; font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--silver-white);
+}
+
+.summary-total-amount {
+    font-size: 22px;
+    color: var(--blue-bright);
+    text-shadow: 0 0 16px rgba(77,184,255,0.4);
+}
+
+.summary-badge {
+    margin-top: 24px;
+    padding: 12px 16px;
+    background: rgba(196, 102, 26,0.06);
+    border: 1px solid rgba(168,188,207,0.15);
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--silver-mid);
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+/* ════════════════ PAYMENT FORM (kanan) ════════════════ */
+.payment-form-box {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 48px 44px;
+    position: relative;
+    overflow: hidden;
+}
+
+.payment-form-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+        transparent,
+        var(--silver-dark) 20%,
+        var(--blue-accent) 50%,
+        var(--silver-dark) 80%,
+        transparent);
+}
+
+.form-header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.form-header h2 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 28px; font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--silver-white);
+    margin-bottom: 6px;
+}
+
+.form-header p {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+/* form fields */
+.form-group {
+    margin-bottom: 26px;
+}
+
+.form-group label {
+    display: block;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--silver-mid);
+    margin-bottom: 10px;
+}
+
+.required { color: #f87171; }
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 14px;
+    font-size: 18px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 14px 14px 14px 46px;
+    background: rgba(10,35,71,0.6);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+}
+
+.input-wrapper input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+.input-wrapper input:focus {
+    outline: none;
+    border-color: var(--blue-accent);
+    background: rgba(10,35,71,0.9);
+    box-shadow: 0 0 0 3px rgba(196, 102, 26,0.15);
+}
+
+.input-wrapper input:valid:not(:placeholder-shown) {
+    border-color: rgba(6,214,160,0.5);
+}
+
+/* ── Metode Pembayaran Grid ── */
+.payment-methods-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.payment-method-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 20px 16px;
+    background: rgba(10,35,71,0.5);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s;
+    overflow: hidden;
+}
+
+.payment-method-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(196, 102, 26,0.08), transparent);
+    opacity: 0;
+    transition: opacity 0.25s;
+}
+
+.payment-method-card:hover {
+    border-color: var(--blue-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(196, 102, 26,0.2);
+}
+
+.payment-method-card:hover::before { opacity: 1; }
+
+.payment-method-card.active {
+    border-color: var(--blue-accent);
+    background: rgba(196, 102, 26,0.1);
+    box-shadow: 0 0 20px rgba(196, 102, 26,0.2), inset 0 0 12px rgba(196, 102, 26,0.05);
+}
+
+.payment-method-card.active::before { opacity: 1; }
+
+/* logo badges */
+.method-logo {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 900;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+}
+
+.method-logo.ovo   { background: linear-gradient(135deg, #5a1d8a, #8b2fc9); color: #fff; }
+.method-logo.gopay { background: linear-gradient(135deg, #00897b, #00bfa5); color: #fff; font-size: 20px; font-weight: 900; }
+.method-logo.dana  { background: linear-gradient(135deg, #1565c0, #1e90ff); color: #fff; font-size: 18px; font-weight: 900; }
+.method-logo.bank  { background: linear-gradient(135deg, #37474f, #546e7a); color: #fff; font-size: 22px; }
+
+.method-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    color: var(--text);
+}
+
+/* checkmark badge */
+.method-check {
+    position: absolute;
+    top: 8px; right: 8px;
+    width: 22px; height: 22px;
+    background: var(--blue-accent);
+    border-radius: 50%;
+    font-size: 12px;
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.2s, transform 0.2s;
+    font-weight: 700;
+}
+
+.payment-method-card.active .method-check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.payment-note {
+    font-size: 13px;
+    color: var(--text-muted);
+    background: rgba(196, 102, 26,0.05);
+    border: 1px solid rgba(196, 102, 26,0.15);
+    border-radius: 6px;
+    padding: 10px 14px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+/* form actions */
+.form-actions {
+    display: flex;
+    gap: 14px;
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid var(--card-border);
+}
+
+.form-actions .btn { flex: 1; padding: 15px 24px; font-size: 15px; }
+
+.btn-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-icon { font-size: 18px; transition: transform 0.3s; }
+.btn-submit:hover .btn-icon { transform: translateX(4px); }
+
+/* ════════════════ SUCCESS POPUP ════════════════ */
+.success-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(5,14,31,0.88);
+    backdrop-filter: blur(8px);
+    z-index: 9000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    animation: overlayIn 0.3s ease;
+}
+
+.success-overlay[hidden] { display: none; }
+
+@keyframes overlayIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.success-popup {
+    background: linear-gradient(160deg, rgba(11,26,51,0.99) 0%, rgba(7,20,40,1) 100%);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 52px 48px 44px;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: popupIn 0.45s cubic-bezier(0.22,1,0.36,1);
+}
+
+@keyframes popupIn {
+    from { opacity: 0; transform: scale(0.88) translateY(20px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* top accent line */
+.success-popup::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+        transparent,
+        var(--silver-dark) 10%,
+        var(--blue-accent) 40%,
+        #06d6a0 60%,
+        var(--silver-dark) 90%,
+        transparent);
+}
+
+/* ambient glow */
+.popup-glow {
+    position: absolute;
+    top: -60px; left: 50%;
+    transform: translateX(-50%);
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(196, 102, 26,0.12) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* ── icon ── */
+.popup-icon-wrap {
+    position: relative;
+    width: 96px; height: 96px;
+    margin: 0 auto 28px;
+    display: flex; align-items: center; justify-content: center;
+}
+
+.popup-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid;
+    animation: ringPulse 2s ease-in-out infinite;
+}
+
+.ring-1 {
+    border-color: rgba(196, 102, 26,0.4);
+    animation-delay: 0s;
+}
+
+.ring-2 {
+    border-color: rgba(6,214,160,0.3);
+    inset: -10px;
+    animation-delay: 0.4s;
+}
+
+@keyframes ringPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50%       { transform: scale(1.08); opacity: 0.5; }
+}
+
+.popup-icon {
+    width: 76px; height: 76px;
+    background: linear-gradient(135deg, var(--blue-primary) 0%, #06d6a0 100%);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 34px; font-weight: 900;
+    color: #fff;
+    box-shadow: 0 0 32px rgba(6,214,160,0.35), 0 0 60px rgba(196, 102, 26,0.2);
+    animation: iconPop 0.5s cubic-bezier(0.22,1,0.36,1) 0.2s both;
+}
+
+@keyframes iconPop {
+    from { transform: scale(0); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+/* ── text ── */
+.success-popup h2 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 32px; font-weight: 700;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, #fff 30%, #06d6a0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+}
+
+.success-popup > p {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    line-height: 1.7;
+}
+
+/* detail pesanan */
+.popup-detail {
+    background: rgba(196, 102, 26,0.06);
+    border: 1px solid var(--card-border);
+    border-left: 3px solid var(--blue-accent);
+    border-radius: 6px;
+    padding: 16px 20px;
+    text-align: left;
+    margin-bottom: 24px;
+    font-size: 14px;
+    color: var(--silver-light);
+    line-height: 1.8;
+}
+
+.popup-detail strong { color: var(--blue-bright); }
+
+/* info row */
+.popup-info-row {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.popup-info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-muted);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(168,188,207,0.1);
+    border-radius: 20px;
+    padding: 7px 14px;
+}
+
+.popup-info-icon { font-size: 16px; }
+
+/* divider */
+.popup-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    font-size: 12px;
+    color: var(--silver-dark);
+    letter-spacing: 0.5px;
+}
+
+.popup-divider span:first-child,
+.popup-divider span:last-child {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--card-border));
+}
+
+.popup-divider span:last-child {
+    background: linear-gradient(270deg, transparent, var(--card-border));
+}
+
+.popup-btn {
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    font-size: 15px;
+}
+
+/* corner brackets on popup */
+.popup-corners .pc {
+    position: absolute;
+    width: 20px; height: 20px;
+    border-color: var(--silver-dark);
+    border-style: solid;
+    opacity: 0.5;
+}
+
+.pc.tl { top: 10px; left: 10px; border-width: 1px 0 0 1px; }
+.pc.tr { top: 10px; right: 10px; border-width: 1px 1px 0 0; }
+.pc.bl { bottom: 10px; left: 10px; border-width: 0 0 1px 1px; }
+.pc.br { bottom: 10px; right: 10px; border-width: 0 1px 1px 0; }
+
+/* ════════════════ RESPONSIVE ════════════════ */
+@media (max-width: 900px) {
+    .payment-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .summary-box { position: static; }
+}
+
+@media (max-width: 600px) {
+    .payment-form-box { padding: 32px 20px; }
+    .payment-methods-grid { grid-template-columns: repeat(2, 1fr); }
+    .form-actions { flex-direction: column; }
+    .success-popup { padding: 40px 24px 32px; }
+    .popup-info-row { flex-direction: column; align-items: center; }
+    .success-popup h2 { font-size: 26px; }
+}

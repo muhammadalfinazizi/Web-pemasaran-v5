@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keranjang Belanja — MUSICA JAYA ELEKTRONIK</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <header class="header" role="banner">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <div class="logo-icon" aria-hidden="true">MJ</div>
+                    <div class="logo-text">
+                        <h1>MUSICA JAYA <span>ELEKTRONIK</span></h1>
+                        <p>Your Music &amp; Electronics Partner</p>
+                    </div>
+                </div>
+                <div class="header-right-group">
+                    <span id="headerCartBtn"></span>
+                    <span id="headerAuthArea"></span>
+                </div>
+            </div>
+            <nav class="nav" role="navigation" aria-label="Menu utama">
+                <a href="index.html">Beranda</a>
+                <a href="products.html">Produk</a>
+                <a href="kontak.html">Kontak</a>
+                <a href="pengembang.html">Pengembang</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="cart-page">
+        <div class="container">
+            <div class="cart-header">
+                <h2>🛒 Keranjang Belanja</h2>
+                <p>Kelola produk yang ingin Anda beli</p>
+            </div>
+
+            <!-- Login warning (shown if not logged in) -->
+            <div id="loginWarning" class="cart-login-warning" hidden>
+                <div class="warn-icon">⚠️</div>
+                <div class="warn-text">
+                    <strong>Anda belum masuk</strong>
+                    <span>Login diperlukan untuk melanjutkan ke pembayaran dan menyimpan riwayat pembelian.</span>
+                </div>
+                <a href="login.html?redirect=cart.html" class="btn btn-primary">Masuk Sekarang</a>
+            </div>
+
+            <div id="cartEmpty" class="cart-empty" style="display: none;">
+                <p>🛍️ Keranjang belanja Anda masih kosong</p>
+                <a href="products.html" class="btn btn-primary">Mulai Belanja</a>
+            </div>
+
+            <div id="cartContent" style="display:none;">
+                <!-- Tabel detail produk -->
+                <div class="cart-table-wrap">
+                    <table class="cart-table">
+                        <thead>
+                            <tr>
+                                <th>Produk</th>
+                                <th class="right">Harga Satuan</th>
+                                <th class="center">Jumlah</th>
+                                <th class="right">Subtotal</th>
+                                <th class="center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cartTableBody"></tbody>
+                        <tfoot id="cartTableFoot"></tfoot>
+                    </table>
+                </div>
+
+                <!-- Summary & actions -->
+                <div class="cart-summary">
+                    <h3>Ringkasan Belanja</h3>
+                    <div class="summary-row">
+                        <span>Total Item:</span>
+                        <span id="totalItems">0</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total Harga:</span>
+                        <span id="totalPrice">Rp 0</span>
+                    </div>
+                    <button class="btn btn-primary btn-block" id="checkoutBtn" onclick="handleCheckout()">Lanjut ke Pembayaran</button>
+                    <a href="products.html" class="btn btn-secondary btn-block">Lanjut Belanja</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2025 MUSICA JAYA ELEKTRONIK. All rights reserved.</p>
+    </footer>
+
+    <script src="js/database.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        let currentSession = null;
+
+        function escapeHtml(value) {
+            return String(value ?? '').replace(/[&<>"']/g, (c) => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[c]));
+        }
+
+        function getCart() {
+            return JSON.parse(localStorage.getItem('cart') || '[]');
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        function removeFromCart(productId) {
+            let cart = getCart().filter(i => i.id !== productId);
+            saveCart(cart);
+            renderCart();
+        }
+
+        function updateQuantity(productId, change) {
+            let cart = getCart();
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) { removeFromCart(productId); return; }
+                saveCart(cart);
+                renderCart();
+            }
+        }
+
+        function renderCart() {
+            const cart = getCart();
+            const cartEmpty   = document.getElementById('cartEmpty');
+            const cartContent = document.getElementById('cartContent');
+            const loginWarn   = document.getElementById('loginWarning');
+
+            if (!currentSession) {
+                loginWarn.hidden = false;
+            }
+
+            if (cart.length === 0) {
+                cartEmpty.style.display = 'block';
+                cartContent.style.display = 'none';
+                return;
+            }
+
+            cartEmpty.style.display = 'none';
+            cartContent.style.display = 'block';
+
+            let totalItems = 0;
+            let totalPrice = 0;
+
+            const rows = cart.map(item => {
+                totalItems += item.quantity;
+                const sub = item.price * item.quantity;
+                totalPrice += sub;
+
+                return `
+                    <tr>
+                        <td>
+                            <div class="cart-product-info">
+                                <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" class="cart-product-thumb">
+                                <div>
+                                    <div class="cart-product-name">${escapeHtml(item.name)}</div>
+                                    <div class="cart-product-id">ID #${item.id}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="right">${formatRupiah(item.price)}</td>
+                        <td class="center">
+                            <div class="qty-controls">
+                                <button class="qty-btn" onclick="updateQuantity(${item.id}, -1)">−</button>
+                                <span class="qty-val">${item.quantity}</span>
+                                <button class="qty-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                            </div>
+                        </td>
+                        <td class="right subtotal-col">${formatRupiah(sub)}</td>
+                        <td class="center">
+                            <button class="btn-remove-row" onclick="removeFromCart(${item.id})">🗑 Hapus</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            document.getElementById('cartTableBody').innerHTML = rows;
+            document.getElementById('cartTableFoot').innerHTML = `
+                <tr>
+                    <td colspan="3" style="padding:14px 16px; color:var(--text-muted); font-size:.85rem;">
+                        ${totalItems} item dipilih
+                    </td>
+                    <td class="right subtotal-col" style="padding:14px 16px; font-size:1.05rem; font-weight:700;">
+                        ${formatRupiah(totalPrice)}
+                    </td>
+                    <td></td>
+                </tr>
+            `;
+
+            document.getElementById('totalItems').textContent = totalItems;
+            document.getElementById('totalPrice').textContent = formatRupiah(totalPrice);
+        }
+
+        function handleCheckout() {
+            if (!currentSession) {
+                window.location.href = 'login.html?redirect=cart.html';
+                return;
+            }
+            const cart = getCart();
+            if (cart.length === 0) return;
+            const cartData = encodeURIComponent(JSON.stringify(cart));
+            window.location.href = `payment.html?cart=${cartData}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', async function () {
+            currentSession = await checkLogin();
+            await renderAuthHeader({ active: '' });
+            renderCart();
+        });
+    </script>
+</body>
+</html>

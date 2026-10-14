@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produk — MUSICA JAYA ELEKTRONIK</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <div class="logo-icon">MJ</div>
+                    <div class="logo-text">
+                        <h1>MUSICA JAYA <span>ELEKTRONIK</span></h1>
+                        <p>Your Music &amp; Electronics Partner</p>
+                    </div>
+                </div>
+                <div class="header-right-group">
+                    <span id="headerCartBtn"></span>
+                    <span id="headerAuthArea"></span>
+                </div>
+            </div>
+            <nav class="nav" role="navigation" aria-label="Menu utama">
+                <a href="index.html">Beranda</a>
+                <a href="products.html" aria-current="page">Produk</a>
+                <a href="kontak.html">Kontak</a>
+                <a href="pengembang.html">Pengembang</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="products-page">
+        <div class="container">
+            <div class="products-header">
+                <h2>Produk (Detail View)</h2>
+                <p>Daftar lengkap produk kami dengan detail harga ter-update (2 Desember 2025).</p>
+            </div>
+            <div class="product-list" id="productList"></div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2025 MUSICA JAYA ELEKTRONIK. All rights reserved.</p>
+    </footer>
+
+    <script src="js/database.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/products-public.js"></script>
+    <script>
+        // Override addToCart to require login
+        const _origAddToCart = addToCart;
+        window.addToCart = async function(product) {
+            const session = await checkLogin();
+            if (!session) {
+                if (confirm('Anda harus login untuk menambahkan produk ke keranjang.\nMasuk sekarang?')) {
+                    window.location.href = 'login.html?redirect=products.html';
+                }
+                return;
+            }
+            _origAddToCart(product);
+        };
+
+        // Override buy now to require login (tetap pakai logika buyNow asli
+        // supaya format URL ke payment.html konsisten dengan cart.html)
+        const _origBuyNow = window.buyNow;
+        window.buyNow = async function(productId, productData) {
+            const session = await checkLogin();
+            if (!session) {
+                if (confirm('Anda harus login untuk melakukan pembelian.\nMasuk sekarang?')) {
+                    window.location.href = 'login.html?redirect=products.html';
+                }
+                return;
+            }
+            _origBuyNow(productId, productData);
+        };
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await renderAuthHeader({ active: 'produk' });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Musica Jaya Elektronik</title>
+    <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+    <div class="admin-topbar">MUSICA JAYA <span>ELEKTRONIK</span> — Admin Panel</div>
+    <div class="page">
+        <div id="loginView" class="card login-box">
+            <h1>Login Admin</h1>
+            <p class="muted">Masuk untuk melihat data pelanggan, pesanan, stok, dan penjualan.</p>
+            <div id="messageBox" class="status"></div>
+            <form id="loginForm" class="grid">
+                <div>
+                    <label for="username">Username</label>
+                    <input id="username" name="username" value="admin" required />
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" required />
+                </div>
+                <button type="submit">Masuk</button>
+            </form>
+        </div>
+
+        <div id="dashboardView" class="hidden">
+            <div class="card">
+                <div class="admin-header">
+                    <div>
+                        <h1>Dashboard Admin</h1>
+                        <p class="muted">Pantau pelanggan, pesanan, penjualan, dan stok produk.</p>
+                    </div>
+                    <button id="logoutBtn" class="secondary" type="button">Logout</button>
+                </div>
+                <div id="dashboardMessage" class="status"></div>
+                <div class="tab-list">
+                    <button class="tab-btn active" data-tab="overview">Ringkasan</button>
+                    <button class="tab-btn" data-tab="users">Pengguna</button>
+                    <button class="tab-btn" data-tab="orders">Pesanan</button>
+                    <button class="tab-btn" data-tab="stock">Stok</button>
+                    <button class="tab-btn" data-tab="site">Situs</button>
+                </div>
+
+                <div id="overviewTab">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="muted">Total Pengguna</div>
+                            <div class="value" id="totalUsers">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="muted">Total Pesanan</div>
+                            <div class="value" id="totalOrders">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="muted">Pendapatan</div>
+                            <div class="value" id="totalRevenue">Rp 0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="muted">Sedang Diproses</div>
+                            <div class="value" id="pendingOrders">0</div>
+                        </div>
+                    </div>
+
+                    <div class="chart-row">
+                        <div class="card">
+                            <h3>Barang Paling Laris</h3>
+                            <div id="topProductsChart" class="bar-list"></div>
+                        </div>
+                        <div class="card">
+                            <h3>Pendapatan Mingguan</h3>
+                            <div id="weeklyRevenueChart" class="bar-list"></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Status Pesanan Minggu Ini</h3>
+                        <div id="weeklyStatusList" class="bar-list"></div>
+                    </div>
+                </div>
+
+                <div id="usersTab" class="hidden">
+                    <h3>Daftar Pengguna Terdaftar</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Email</th>
+                                <th>Username</th>
+                                <th>Tanggal Daftar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody"></tbody>
+                    </table>
+                </div>
+
+                <div id="ordersTab" class="hidden">
+                    <h3>Daftar Pesanan</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Pelanggan</th>
+                                <th>Barang Dipesan</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Kontak</th>
+                                <th>Ubah Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody"></tbody>
+                    </table>
+                </div>
+
+                <div id="stockTab" class="hidden">
+                    <h3>Kelola Stok Produk</h3>
+                    <div class="card" style="margin-bottom: 16px;">
+                        <h4>Tambah Produk Baru</h4>
+                        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+                            <div>
+                                <label for="newProductName">Nama Produk</label>
+                                <input id="newProductName" />
+                            </div>
+                            <div>
+                                <label for="newProductSku">SKU (opsional)</label>
+                                <input id="newProductSku" placeholder="Kosongkan = dibuat otomatis" />
+                            </div>
+                            <div>
+                                <label for="newProductPrice">Harga</label>
+                                <input id="newProductPrice" type="number" min="0" step="0.01" />
+                            </div>
+                            <div>
+                                <label for="newProductStock">Stok</label>
+                                <input id="newProductStock" type="number" min="0" />
+                            </div>
+                        </div>
+                        <div style="margin-top: 12px;">
+                            <label for="newProductDescription">Deskripsi (opsional)</label>
+                            <textarea id="newProductDescription" rows="2" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; font-family:inherit;"></textarea>
+                        </div>
+                        <div style="margin-top: 12px;">
+                            <label for="newProductImage">Foto Produk (opsional)</label>
+                            <input id="newProductImage" type="file" accept="image/png,image/jpeg,image/webp,image/gif" />
+                            <img id="newProductImagePreview" class="hidden" style="max-width:120px; margin-top:8px; border-radius:8px; border:1px solid var(--border);" />
+                        </div>
+                        <button type="button" id="addProductBtn" style="margin-top: 12px; width: auto;">Tambah Produk</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Nama Produk</th>
+                                <th>SKU</th>
+                                <th>Harga</th>
+                                <th>Stok</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productTableBody"></tbody>
+                    </table>
+                </div>
+
+                <div id="siteTab" class="hidden">
+                    <h3>Pengaturan Situs</h3>
+                    <div class="card" style="margin-bottom: 16px;">
+                        <h4>Beranda &amp; Tentang Toko</h4>
+                        <div style="margin-top:12px;">
+                            <label for="siteAboutImage">Foto Beranda (bagian "Tentang Toko")</label>
+                            <input id="siteAboutImage" type="file" accept="image/png,image/jpeg,image/webp,image/gif" />
+                            <img id="siteAboutImagePreview" class="hidden" style="max-width:160px; margin-top:8px; border-radius:8px; border:1px solid var(--border);" />
+                        </div>
+                        <div style="margin-top:12px;">
+                            <label for="siteAboutDescription">Deskripsi Toko</label>
+                            <textarea id="siteAboutDescription" rows="3" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; font-family:inherit;"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 16px;">
+                        <h4>Halaman Kontak</h4>
+                        <div style="margin-top:12px;">
+                            <label for="siteContactImage">Foto Depan Toko</label>
+                            <input id="siteContactImage" type="file" accept="image/png,image/jpeg,image/webp,image/gif" />
+                            <img id="siteContactImagePreview" class="hidden" style="max-width:160px; margin-top:8px; border-radius:8px; border:1px solid var(--border);" />
+                        </div>
+                        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-top:12px;">
+                            <div>
+                                <label for="siteContactPhone">Telepon / WhatsApp</label>
+                                <input id="siteContactPhone" placeholder="089-xxx-xxx-xxxx" />
+                            </div>
+                            <div>
+                                <label for="siteContactAddress">Alamat Toko</label>
+                                <input id="siteContactAddress" />
+                            </div>
+                            <div>
+                                <label for="siteContactHours">Jam Buka</label>
+                                <input id="siteContactHours" placeholder="Senin – Sabtu: 09.00 – 21.00 WIB" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 16px;">
+                        <h4>Foto Tim Pengembang</h4>
+                        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); margin-top:12px; gap:16px;">
+                            <div>
+                                <label for="siteTeamPhoto1">Amel</label>
+                                <input id="siteTeamPhoto1" type="file" accept="image/png,image/jpeg,image/webp,image/gif" />
+                                <img id="siteTeamPhoto1Preview" class="hidden" style="max-width:100px; margin-top:8px; border-radius:8px; border:1px solid var(--border);" />
+                            </div>
+                            <div>
+                                <label for="siteTeamPhoto2">Alfin</label>
+                                <input id="siteTeamPhoto2" type="file" accept="image/png,image/jpeg,image/webp,image/gif" />
+                                <img id="siteTeamPhoto2Preview" class="hidden" style="max-width:100px; margin-top:8px; border-radius:8px; border:1px solid var(--border);" />
+                            </div>
+                            <div>
+                                <label for="siteTeamPhoto3">Reno</label>
+                                <input id="siteTeamPhoto3" type="file" accept="image/png,image/jpeg,image/webp,image/gif" />
+                                <img id="siteTeamPhoto3Preview" class="hidden" style="max-width:100px; margin-top:8px; border-radius:8px; border:1px solid var(--border);" />
+                            </div>
+                            <div>
+                                <label for="siteTeamPhoto4">Rita</label>
+                                <input id="siteTeamPhoto4" type="file" accept="image/png,image/jpeg,image/webp,image/gif" />
+                                <img id="siteTeamPhoto4Preview" class="hidden" style="max-width:100px; margin-top:8px; border-radius:8px; border:1px solid var(--border);" />
+                            </div>
+                            <div>
+                                <label for="siteTeamPhoto5">Sri Wulandari</label>
+                                <input id="siteTeamPhoto5" type="file" accept="image/png,image/jpeg,image/webp,image/gif" />
+                                <img id="siteTeamPhoto5Preview" class="hidden" style="max-width:100px; margin-top:8px; border-radius:8px; border:1px solid var(--border);" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" id="saveSiteSettingsBtn" style="width:auto;">Simpan Pengaturan Situs</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit Produk -->
+    <div id="editProductModal" class="hidden" style="position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:2000; display:flex; align-items:center; justify-content:center; padding:16px;">
+        <div class="card" style="max-width:480px; width:100%; max-height:90vh; overflow-y:auto;">
+            <h3>Edit Produk</h3>
+            <input type="hidden" id="editProductId" />
+            <div style="margin-top:12px;">
+                <label for="editProductName">Nama Produk</label>
+                <input id="editProductName" />
+            </div>
+            <div style="margin-top:12px;">
+                <label for="editProductSku">SKU</label>
+                <input id="editProductSku" />
+            </div>
+            <div style="margin-top:12px;">
+                <label for="editProductPrice">Harga</label>
+                <input id="editProductPrice" type="number" min="0" step="0.01" />
+            </div>
+            <div style="margin-top:12px;">
+                <label for="editProductStock">Stok</label>
+                <input id="editProductStock" type="number" min="0" />
+            </div>
+            <div style="margin-top:12px;">
+                <label for="editProductDescription">Deskripsi</label>
+                <textarea id="editProductDescription" rows="2" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; font-family:inherit;"></textarea>
+            </div>
+            <div style="margin-top:12px;">
+                <label for="editProductImage">Ganti Foto (opsional)</label>
+                <input id="editProductImage" type="file" accept="image/png,image/jpeg,image/webp,image/gif" />
+                <img id="editProductImagePreview" class="hidden" style="max-width:120px; margin-top:8px; border-radius:8px; border:1px solid var(--border);" />
+            </div>
+            <div style="margin-top:16px; display:flex; gap:8px;">
+                <button type="button" id="saveEditProductBtn" style="width:auto;">Simpan Perubahan</button>
+                <button type="button" class="secondary" id="cancelEditProductBtn" style="width:auto;">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin-stock.js"></script>
+</body>
+</html>

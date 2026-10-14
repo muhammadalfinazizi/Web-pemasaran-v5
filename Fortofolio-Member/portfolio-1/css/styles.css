@@ -1,0 +1,1100 @@
+/* ============================================
+   ROOT VARIABLES - Warna dan palet dasar
+   Mendefinisikan CSS custom properties untuk warna, gradien, dan efek shadow
+   ============================================ */
+:root {
+  --bg: #020e1c;
+  --bg2: #031120;
+  --surface: #0c2238;
+  --surface2: #102b45;
+  --surface3: #153354;
+  --blue1: #0ea5e9;
+  --blue2: #38bdf8;
+  --blue3: #7dd3fc;
+  --blue4: #0369a1;
+  --blue5: #bae6fd;
+  --accent-glow: rgba(14, 165, 233, 0.4);
+  --accent-glow2: rgba(56, 189, 248, 0.15);
+  --text: #f0f9ff;
+  --text-muted: #93c5fd;
+  --text-dim: #7eb8d4;
+  --border: rgba(56, 189, 248, 0.25);
+  --border-bright: rgba(56, 189, 248, 0.55);
+}
+
+/* ============================================
+   RESET & BASE - Styling dasar HTML
+   Reset margin/padding default dan setup font global
+   ============================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Images: make responsive by default */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+  min-height: 100vh;
+}
+
+/* ============================================
+   ANIMATED SIGNAL BACKGROUND - Canvas animasi background
+   Menampilkan efek jaringan yang bergerak di background
+   ============================================ */
+.signal-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.35;
+}
+
+/* ============================================
+   WAVE OVERLAY GRADIENT - Gradient dekoratif di background
+   Menambahkan efek blur radial gradient untuk kedalaman
+   ============================================ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 20%, rgba(3, 105, 161, 0.25) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 80% 70%, rgba(14, 165, 233, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 30% 30% at 50% 50%, rgba(56, 189, 248, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================
+   CUSTOM CURSOR - Kursor mouse custom
+   Mengganti kursor default dengan dot animasi + ring
+   ============================================ */
+.cursor {
+  width: 10px;
+  height: 10px;
+  background: var(--blue2);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s ease, background 0.2s;
+  box-shadow: 0 0 12px var(--blue2), 0 0 24px rgba(56, 189, 248, 0.4);
+}
+
+.cursor-ring {
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid rgba(56, 189, 248, 0.5);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transition: all 0.18s ease;
+}
+
+/* ============================================
+   NAVBAR - Menu navigasi fixed
+   Navigasi tetap di atas dengan logo, links, dan animasi
+   ============================================ */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 4rem;
+  background: rgba(2, 14, 28, 0.95);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.nav-logo {
+  font-family: 'Rajdhani', 'Space Mono', monospace;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.nav-logo span {
+  color: var(--blue1);
+  font-weight: 400;
+}
+
+.nav-logo::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background: var(--blue1);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--blue1), 0 0 16px var(--blue1);
+  animation: pulseDot 2s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: translateY(-50%) scale(1); }
+  50% { opacity: 0.5; transform: translateY(-50%) scale(1.5); }
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--blue1);
+  box-shadow: 0 0 6px var(--blue1);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--blue2);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+/* ============================================
+   MAIN PAGE WRAPPER - Container utama konten
+   Wrapper untuk semua section halaman
+   ============================================ */
+.page-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+   HERO SECTION - Bagian pengenalan utama
+   Grid 2 kolom: teks kiri (nama, profil, buttons) + visual kanan (signal orb)
+   ============================================ */
+#hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  padding: 8rem 4rem 4rem 4rem;
+  gap: 4rem;
+  position: relative;
+}
+
+.hero-left {
+  position: relative;
+}
+
+.hero-signal-line {
+  position: absolute;
+  left: -4rem;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--blue1) 30%, var(--blue2) 70%, transparent);
+  opacity: 0.4;
+}
+
+.hero-signal-line::before {
+  content: '';
+  position: absolute;
+  left: -3px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--blue2);
+  top: 30%;
+  animation: slideSignal 3s ease-in-out infinite;
+  box-shadow: 0 0 10px var(--blue2);
+}
+
+@keyframes slideSignal {
+  0% { top: 20%; opacity: 0; }
+  50% { opacity: 1; }
+  100% { top: 80%; opacity: 0; }
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  background: rgba(14, 165, 233, 0.12);
+  color: var(--blue3);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1.8rem;
+}
+
+.hero-badge::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--blue1);
+  box-shadow: 0 0 6px var(--blue1);
+  animation: pulseDot 1.5s infinite;
+}
+
+.hero-name {
+  font-family: 'Rajdhani', 'Syne', sans-serif;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.highlight {
+  color: var(--blue2);
+  text-shadow: 0 0 30px rgba(56, 189, 248, 0.5);
+}
+
+.hero-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.hero-title::before {
+  content: '';
+  display: inline-block;
+  width: 30px;
+  height: 1px;
+  background: var(--blue1);
+  box-shadow: 0 0 6px var(--blue1);
+  flex-shrink: 0;
+}
+
+.hero-desc {
+  color: var(--text-dim);
+  line-height: 1.8;
+  font-size: 0.95rem;
+  max-width: 500px;
+  margin-bottom: 2.5rem;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  background: var(--blue1);
+  color: #010b18;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+  box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
+}
+
+.btn-primary:hover {
+  background: var(--blue2);
+  box-shadow: 0 0 35px rgba(56, 189, 248, 0.6);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  border: 1px solid var(--border-bright);
+  color: var(--blue3);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s;
+  background: transparent;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+
+.btn-outline:hover {
+  background: rgba(14, 165, 233, 0.08);
+  border-color: var(--blue1);
+  color: var(--blue2);
+  box-shadow: 0 0 18px rgba(14, 165, 233, 0.2);
+}
+
+/* ============================================
+   HERO RIGHT - Visual element (Signal Orb)
+   Elemen visual utama dengan animasi lingkaran pulsing dan icon
+   ============================================ */
+.hero-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.signal-orb-wrapper {
+  position: relative;
+  width: 340px;
+  height: 340px;
+}
+
+.signal-orb {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(14, 165, 233, 0.18) 0%, rgba(3, 105, 161, 0.08) 50%, transparent 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signal-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  animation: signalPulse linear infinite;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.signal-ring:nth-child(1) { width: 80px; height: 80px; animation-duration: 2.5s; animation-delay: 0s; border-color: rgba(56,189,248,0.6); }
+.signal-ring:nth-child(2) { width: 140px; height: 140px; animation-duration: 2.5s; animation-delay: 0.4s; border-color: rgba(56,189,248,0.4); }
+.signal-ring:nth-child(3) { width: 200px; height: 200px; animation-duration: 2.5s; animation-delay: 0.8s; border-color: rgba(56,189,248,0.25); }
+.signal-ring:nth-child(4) { width: 270px; height: 270px; animation-duration: 2.5s; animation-delay: 1.2s; border-color: rgba(56,189,248,0.12); }
+.signal-ring:nth-child(5) { width: 340px; height: 340px; animation-duration: 2.5s; animation-delay: 1.6s; border-color: rgba(56,189,248,0.05); }
+
+@keyframes signalPulse {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(0.3); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+}
+
+.signal-center {
+  position: relative;
+  z-index: 2;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--blue1) 0%, var(--blue4) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 30px var(--blue1), 0 0 60px rgba(14, 165, 233, 0.4);
+  font-size: 2rem;
+}
+
+/* Ensure the center image fits the circular container */
+.signal-center img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.floating-chip {
+  position: absolute;
+  background: var(--surface2);
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  padding: 0.45rem 0.85rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--blue2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%);
+  box-shadow: 0 4px 16px rgba(14, 165, 233, 0.2);
+}
+
+.chip-1 { top: 5%; right: -10%; animation: floatChip 4s ease-in-out infinite; }
+.chip-2 { bottom: 15%; left: -15%; animation: floatChip 4.5s ease-in-out infinite 0.5s; }
+.chip-3 { top: 55%; right: -18%; animation: floatChip 3.8s ease-in-out infinite 1s; }
+
+@keyframes floatChip {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ============================================
+   SECTION SHARED STYLES - Styling umum untuk semua section
+   Label, title, dan description yang digunakan di semua halaman
+   ============================================ */
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue1);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.section-label::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: var(--blue1);
+  box-shadow: 0 0 6px var(--blue1);
+}
+
+.section-title {
+  font-family: 'Rajdhani', 'Syne', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.section-desc {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  line-height: 1.8;
+  max-width: 600px;
+  margin-bottom: 3rem;
+}
+
+/* ============================================
+   SKILLS SECTION - Menampilkan daftar keahlian
+   Grid 3 kolom dengan skill cards, kategori, deskripsi, dan progress bar
+   ============================================ */
+#skills {
+  padding: 7rem 4rem;
+  position: relative;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.skill-card {
+  background: var(--surface);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  box-shadow: inset 0 1px 0 rgba(56, 189, 248, 0.1);
+}
+
+.skill-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(to right, var(--blue1), var(--blue3));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.skill-card:hover {
+  border-color: var(--border-bright);
+  background: var(--surface2);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(14, 165, 233, 0.2), 0 0 0 1px rgba(56, 189, 248, 0.25), inset 0 1px 0 rgba(56, 189, 248, 0.2);
+}
+
+.skill-card:hover::before {
+  opacity: 1;
+}
+
+/* Ripple bg on cards */
+.skill-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 1px solid rgba(56, 189, 248, 0.08);
+  pointer-events: none;
+  transition: transform 0.5s;
+}
+
+.skill-card:hover::after {
+  transform: scale(1.4);
+}
+
+.skill-icon {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.skill-category {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--blue1);
+  margin-bottom: 0.4rem;
+}
+
+.skill-name {
+  font-family: 'Rajdhani', 'Syne', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.75rem;
+}
+
+.skill-desc {
+  color: var(--text-dim);
+  font-size: 0.83rem;
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+
+.skill-tag {
+  padding: 0.25rem 0.6rem;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: var(--blue3);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(14, 165, 233, 0.1);
+}
+
+.skill-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.skill-bar-item {}
+
+.skill-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.3rem;
+}
+
+.skill-bar-track {
+  height: 3px;
+  background: rgba(14, 165, 233, 0.18);
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(to right, var(--blue4), var(--blue2));
+  box-shadow: 0 0 8px var(--blue1);
+  transition: width 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ============================================
+   PORTFOLIO SECTION - Galeri proyek/portfolio
+   Grid dengan tab filter dan project cards dengan hover effect
+   ============================================ */
+#portfolio {
+  padding: 7rem 4rem;
+  background: var(--surface);
+  position: relative;
+}
+
+#portfolio::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--blue1), transparent);
+  opacity: 0.6;
+}
+
+.portfolio-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.tab-btn {
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-dim);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-bottom: -1px;
+}
+
+.tab-btn.active, .tab-btn:hover {
+  color: var(--blue2);
+  border-bottom-color: var(--blue1);
+  background: rgba(14, 165, 233, 0.04);
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.port-card {
+  background: var(--bg2);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+  cursor: pointer;
+  display: none;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+}
+
+.port-card.visible {
+  display: block;
+}
+
+.port-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-bright);
+  box-shadow: 0 16px 40px rgba(14, 165, 233, 0.2), 0 0 0 1px rgba(56, 189, 248, 0.15);
+}
+
+.port-thumb {
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.08), rgba(3, 105, 161, 0.04));
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ripple on thumb */
+.port-thumb::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-radial-gradient(circle at center, transparent 0px, transparent 18px, rgba(56,189,248,0.06) 19px, transparent 20px);
+}
+
+.port-body {
+  padding: 1.25rem;
+}
+
+.port-cat {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--blue1);
+  margin-bottom: 0.4rem;
+}
+
+.port-title {
+  font-family: 'Rajdhani', 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.03em;
+}
+
+.port-desc {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+/* ============================================
+   ABOUT SECTION - Informasi tentang pembuat
+   2 kolom: teks kiri + statistik/info box kanan
+   ============================================ */
+#about {
+  padding: 7rem 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.stat-box {
+  background: var(--surface2);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+  transition: border-color 0.3s;
+  box-shadow: inset 0 0 20px rgba(14, 165, 233, 0.05);
+}
+
+.stat-box:hover {
+  border-color: var(--blue2);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.15), inset 0 0 20px rgba(14, 165, 233, 0.08);
+}
+
+.stat-box::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, var(--blue1), transparent);
+}
+
+.stat-num {
+  font-family: 'Rajdhani', 'Syne', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--blue2);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+  text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+}
+
+.stat-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--surface2);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-left: 3px solid var(--blue1);
+  transition: all 0.3s;
+}
+
+.info-item:hover {
+  background: var(--surface3);
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: -4px 0 20px rgba(14, 165, 233, 0.2);
+}
+
+.info-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.info-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+
+.info-value {
+  font-size: 0.88rem;
+  color: var(--text);
+}
+
+/* ============================================
+   CONTACT SECTION - Bagian kontak dan CTA
+   Email, deskripsi, dan social media links
+   ============================================ */
+#contact {
+  padding: 7rem 4rem;
+  background: var(--surface);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+#contact::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--blue1), transparent);
+  opacity: 0.6;
+}
+
+/* Ripple rings in contact background */
+#contact::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  border: 1px solid rgba(14, 165, 233, 0.06);
+  pointer-events: none;
+  box-shadow: 0 0 0 80px rgba(14,165,233,0.03), 0 0 0 160px rgba(14,165,233,0.02), 0 0 0 240px rgba(14,165,233,0.01);
+}
+
+.contact-inner {
+  max-width: 620px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-inner .section-label {
+  justify-content: center;
+}
+
+.contact-inner .section-label::before {
+  display: none;
+}
+
+.contact-email {
+  font-family: 'Rajdhani', 'Syne', sans-serif;
+  font-size: clamp(1.3rem, 2.5vw, 2rem);
+  font-weight: 700;
+  color: var(--blue2);
+  text-decoration: none;
+  display: block;
+  margin: 1.5rem 0;
+  transition: text-shadow 0.3s;
+  letter-spacing: 0.03em;
+}
+
+.contact-email:hover {
+  text-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+}
+
+.contact-desc {
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+}
+
+.social-links {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: var(--blue3);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.3s;
+  background: var(--surface2);
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+}
+
+.social-link:hover {
+  border-color: var(--blue1);
+  color: var(--blue2);
+  background: rgba(14, 165, 233, 0.06);
+  box-shadow: 0 0 16px rgba(14, 165, 233, 0.15);
+}
+
+/* ============================================
+   FOOTER - Baris footer bawah
+   Copyright dan informasi dasar
+   ============================================ */
+footer {
+  padding: 1.5rem 4rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+footer p {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+}
+
+/* ============================================
+   REVEAL ANIMATION - Animasi scroll reveal
+   Elemen fade-in + slide up saat di-scroll ke viewport
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ============================================
+   SCROLLBAR - Styling custom scrollbar
+   Scrollbar yang match dengan color scheme
+   ============================================ */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.35); border-radius: 10px; }
+
+/* ============================================
+   RESPONSIVE - Breakpoint untuk mobile/tablet
+   Media query untuk layar < 900px
+   ============================================ */
+@media (max-width: 900px) {
+  #hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 7rem 1.5rem 3rem;
+  }
+
+  .hero-right { order: -1; }
+  .hero-btns { justify-content: center; }
+  .hero-desc { margin: 0 auto 2.5rem; }
+  .hero-title { justify-content: center; }
+  .hero-signal-line { display: none; }
+
+  .skills-grid, .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #about {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding: 4rem 1.5rem;
+  }
+
+  nav {
+    padding: 1rem 1.5rem;
+  }
+
+  .nav-links { gap: 1.2rem; }
+  .nav-logo::before { display: none; }
+
+  #skills, #portfolio, #contact {
+    padding: 4rem 1.5rem;
+  }
+
+  footer {
+    padding: 1rem 1.5rem;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .signal-orb-wrapper {
+    width: 240px;
+    height: 240px;
+  }
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pendidikan — Muhammad Alfin Azizi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script defer src="js/script.js"></script>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<canvas class="signal-canvas" id="signalCanvas"></canvas>
+
+<div class="page-wrapper">
+
+<nav>
+  <div class="nav-logo">Alfin<span>.portfolio</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="keahlian.html">Keahlian</a></li>
+    <li><a href="pendidikan.html">Pendidikan</a></li>
+    <li><a href="tentang.html">Tentang</a></li>
+    <li><a href="kontak.html">Kontak</a></li>
+  </ul>
+</nav>
+
+<section id="portfolio" style="padding-top: 9rem;">
+  <div class="section-label reveal">Pendidikan</div>
+  <h2 class="section-title reveal">Latar Belakang Pendidikan</h2>
+  <p class="section-desc reveal">Sekolah di SMKN 1 NGLEGOK dengan jurusan Teknik Komputer dan Jaringan (TKJ) untuk mempersiapkan diri di dunia teknologi.</p>
+
+  <div class="portfolio-tabs reveal">
+    <button class="tab-btn active" data-cat="all">Semua</button>
+    <button class="tab-btn" data-cat="networking">Networking</button>
+    <button class="tab-btn" data-cat="sysadmin">SysAdmin</button>
+    <button class="tab-btn" data-cat="webdev">Web Dev</button>
+  </div>
+
+  <div class="portfolio-grid">
+    <div class="port-card networking visible reveal">
+      <div class="port-thumb"><div class="port-thumb-pattern"></div>🌐</div>
+      <div class="port-body">
+        <div class="port-cat">Networking</div>
+        <h3 class="port-title">Dasar Jaringan Komputer</h3>
+        <p class="port-desc">Mempelajari fundamentals jaringan, model OSI, protokol komunikasi, dan arsitektur jaringan modern.</p>
+      </div>
+    </div>
+    <div class="port-card networking visible reveal reveal-delay-1">
+      <div class="port-thumb"><div class="port-thumb-pattern"></div>🔒</div>
+      <div class="port-body">
+        <div class="port-cat">Networking</div>
+        <h3 class="port-title">Konfigurasi Router Mikrotik</h3>
+        <p class="port-desc">Practical experience dalam konfigurasi dan administrasi router Mikrotik untuk jaringan skala kecil hingga menengah.</p>
+      </div>
+    </div>
+    <div class="port-card networking visible reveal reveal-delay-2">
+      <div class="port-thumb"><div class="port-thumb-pattern"></div>📡</div>
+      <div class="port-body">
+        <div class="port-cat">Networking</div>
+        <h3 class="port-title">Perangkat Jaringan</h3>
+        <p class="port-desc">Pemahaman mendalam tentang fungsi dan cara kerja perangkat jaringan seperti switch, router, dan access point.</p>
+      </div>
+    </div>
+    <div class="port-card sysadmin visible reveal">
+      <div class="port-thumb"><div class="port-thumb-pattern"></div>🐧</div>
+      <div class="port-body">
+        <div class="port-cat">SysAdmin</div>
+        <h3 class="port-title">Administrasi Linux/Debian</h3>
+        <p class="port-desc">Training praktis dalam instalasi, konfigurasi, dan administrasi sistem operasi Linux dan Debian secara profesional.</p>
+      </div>
+    </div>
+    <div class="port-card sysadmin visible reveal reveal-delay-1">
+      <div class="port-thumb"><div class="port-thumb-pattern"></div>📦</div>
+      <div class="port-body">
+        <div class="port-cat">SysAdmin</div>
+        <h3 class="port-title">Manajemen Server</h3>
+        <p class="port-desc">Belajar mengelola server, user management, permission handling, dan maintenance sistem secara berkala.</p>
+      </div>
+    </div>
+    <div class="port-card sysadmin visible reveal reveal-delay-2">
+      <div class="port-thumb"><div class="port-thumb-pattern"></div>🖥️</div>
+      <div class="port-body">
+        <div class="port-cat">SysAdmin</div>
+        <h3 class="port-title">Database Management</h3>
+        <p class="port-desc">Praktik pengelolaan database, backup, recovery, dan optimisasi performa database untuk aplikasi enterprise.</p>
+      </div>
+    </div>
+    <div class="port-card webdev visible reveal">
+      <div class="port-thumb"><div class="port-thumb-pattern"></div>🌍</div>
+      <div class="port-body">
+        <div class="port-cat">Web Dev</div>
+        <h3 class="port-title">HTML & CSS Responsive</h3>
+        <p class="port-desc">Belajar membuat website responsive menggunakan HTML5 dan CSS3 dengan mobile-first approach yang modern.</p>
+      </div>
+    </div>
+    <div class="port-card webdev visible reveal reveal-delay-1">
+      <div class="port-thumb"><div class="port-thumb-pattern"></div>🔧</div>
+      <div class="port-body">
+        <div class="port-cat">Web Dev</div>
+        <h3 class="port-title">JavaScript Programming</h3>
+        <p class="port-desc">Pengembangan skill JavaScript untuk interaktivitas web, DOM manipulation, dan asynchronous programming.</p>
+      </div>
+    </div>
+    <div class="port-card webdev visible reveal reveal-delay-2">
+      <div class="port-thumb"><div class="port-thumb-pattern"></div>📊</div>
+      <div class="port-body">
+        <div class="port-cat">Web Dev</div>
+        <h3 class="port-title">Backend & Database Web</h3>
+        <p class="port-desc">Belajar PHP untuk backend development, MySQL untuk database, dan integrasi sistem web yang kompleks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 — Muhammad Alfin Azizi. Dibuat dengan 💙</p>
+  <p>Networking · SysAdmin · Web Development</p>
+</footer>
+
+</div>
+</body>
+</html>
